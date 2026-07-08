@@ -1,0 +1,100 @@
+# QuantAI Unified — configs/default.yml
+# Configuração base (Gabriel18182 style, expandida com universo neuralops777)
+
+backtest:
+  start_date: "2021-01-01"
+  end_date: "2024-12-31"
+  initial_capital: 100000.0
+  rebalance_frequency: "monthly"   # monthly | quarterly
+  transaction_cost_bps: 10         # 0.10% por operação
+  slippage_bps: 5                  # 0.05% de slippage (neuralops777)
+  benchmark: "^BVSP"
+
+selection:
+  top_n: 8
+  max_weight: 0.35
+  min_weight: 0.02
+  volatility_target_annual: 0.18
+  min_daily_volume_brl: 1000000    # R$1M/dia mínimo de liquidez
+  rebalance_threshold: 0.05        # Rebalanceia se desvio > 5%
+
+assets:
+  # Large Caps B3
+  - PETR4.SA
+  - VALE3.SA
+  - ITUB4.SA
+  - BBDC4.SA
+  - ABEV3.SA
+  - B3SA3.SA
+  - WEGE3.SA
+  - RENT3.SA
+  - LREN3.SA
+  - MGLU3.SA
+  - RADL3.SA
+  - RAIL3.SA
+  - SUZB3.SA
+  - GGBR4.SA
+  - HAPV3.SA
+  # FIIs
+  - MXRF11.SA
+  - KNRI11.SA
+  - HGLG11.SA
+  - VISC11.SA
+  # ETFs
+  - BOVA11.SA
+  - SMAL11.SA
+  - IVVB11.SA
+
+macro:
+  selic_series: 432      # SGS/BCB série Selic
+  ipca_series: 433       # SGS/BCB série IPCA
+  ptax_series: 1         # SGS/BCB câmbio PTAX
+  spread_series: 20786   # SGS/BCB spread bancário
+
+ai:
+  model: "gpt-4o-mini"
+  max_tokens: 1500
+  estimated_cost_usd: 0.33
+  use_fallback: true     # Fallback auditado (Gabriel)
+
+factors:
+  momentum_weights:
+    mom_3m: 0.25
+    mom_6m: 0.35
+    mom_12m: 0.40
+  trend_quality_weight: 0.20
+  volatility_weight: 0.20
+  rsi_weight: 0.15
+  macro_weight: 0.05     # Novo: dados macro BCB
+
+ml:
+  horizon_days: 21       # Janela de previsão XGBoost
+  train_window_months: 24
+  walk_forward: true
+  ensemble_weights:
+    random_forest: 0.40
+    xgboost: 0.60
+
+sector_map:
+  PETR4.SA: Energia
+  VALE3.SA: Mineração
+  ITUB4.SA: Financeiro
+  BBDC4.SA: Financeiro
+  ABEV3.SA: Consumo
+  B3SA3.SA: Financeiro
+  WEGE3.SA: Indústria
+  RENT3.SA: Mobilidade
+  LREN3.SA: Varejo
+  MGLU3.SA: Varejo
+  RADL3.SA: Saúde
+  RAIL3.SA: Logística
+  SUZB3.SA: Papel e Celulose
+  GGBR4.SA: Siderurgia
+  HAPV3.SA: Saúde
+  MXRF11.SA: FII
+  KNRI11.SA: FII
+  HGLG11.SA: FII
+  VISC11.SA: FII
+  BOVA11.SA: ETF
+  SMAL11.SA: ETF
+  IVVB11.SA: ETF
