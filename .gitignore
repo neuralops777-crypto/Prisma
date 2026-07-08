@@ -67,11 +67,12 @@ data/external/*
 !data/external/.gitkeep
 
 # Generated reports
-reports/*.pdf
+reports/*
+!reports/.gitkeep
+!reports/reporting.py
+!reports/figures/
 reports/figures/*
 !reports/figures/.gitkeep
-!reports/.gitkeep
-reports/.~lock.final_report.pdf#
 
 # Plot exports / misc
 *.html
